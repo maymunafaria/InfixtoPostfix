@@ -92,9 +92,7 @@ void infixtopostfix()
         else if(a[i] == ')')
         {
             while((x = pop()) != '(')
-                {
-                b[k]=' ';
-                k++;
+	    	{
                 b[k]=x;
                 k++;
                 b[k]=' ';

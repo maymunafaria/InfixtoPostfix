@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<string.h>
+#include<math.h>
 
 char s[100],a[100],b[100];
 int top = -1;
@@ -52,7 +53,11 @@ int operand(char x)
 
 int precedence(char x)
 {
-	if(x== '*' || x== '/')
+    if(x=='^')
+    {
+        return 3;
+    }
+	else if(x== '*' || x== '/')
 	{
 		return 2;
 	}
@@ -85,6 +90,11 @@ void infixtopostfix()
                 b[k]=a[i];
                 k++;
             }
+        else if(a[i] == ' ')
+        {
+            b[k]=a[i];
+            k++;
+        }
         else if(a[i] == '(')
             {
                 push(a[i]);
@@ -92,7 +102,7 @@ void infixtopostfix()
         else if(a[i] == ')')
         {
             while((x = pop()) != '(')
-	    	{
+                {
                 b[k]=x;
                 k++;
                 b[k]=' ';
@@ -145,10 +155,7 @@ value()
                     x=atoi(c);
                     pushint(x);
         }
-            else if(b[i]==' ')
-            {
-                    ;
-            }
+
 
             else if(b[i]=='+')
             {
@@ -180,6 +187,14 @@ value()
             y=popint();
             z=popint();
             l=z/y;
+            pushint(l);
+
+            }
+            else if(b[i]=='^')
+            {
+            y=popint();
+            z=popint();
+            l=pow(z,y);
             pushint(l);
 
             }
